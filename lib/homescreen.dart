@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_dotted/flutter_dotted.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:validation_project/models/output_model.dart';
 import 'package:validation_project/api/testapi.dart';
 
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _controller = TextEditingController();
   late Future<OutputModel> outputModel;
   bool hasProfanity = false;
+  int unsafeImageCounter = 0;
 
   File? imageTemporary;
 
@@ -212,16 +214,6 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       print(e.toString());
     }
-    // final picImage = await ImagePicker().pickImage(
-    //   source: ImageSource.gallery,
-    // );
-    // if (picImage == null) return;
-    // imageTemporary = File(picImage.path);
-    // print(imageTemporary);
-    // setState(() {
-    //   image = imageTemporary;
-    //   //print(image);
-    // });
 
     String validateModel = await nudityApi();
     double myDouble = double.parse(validateModel);
@@ -236,7 +228,17 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ));
+      unsafeImageCounter++;
+      if (unsafeImageCounter == 3) {
+        await QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            title: 'Blocked',
+            text:
+                'You have touched highest no. of picking nudity content. So you are blocked.');
+      }
     } else {
+      unsafeImageCounter = 0;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: CustomSnackBar(
           color: Colors.green,
