@@ -7,7 +7,7 @@ Future<OutputModel> testApi({
   required String text,
 }) async {
   var headers = {
-    'x-rapidapi-key': 'de94d3604fmsh124a897a5fc6e2ap115136jsn86e11b379074',
+    'x-rapidapi-key': 'my_rappid_api_key',
     'x-rapidapi-host': 'profanity-filter-by-api-ninjas.p.rapidapi.com',
   };
   const url = 'profanity-filter-by-api-ninjas.p.rapidapi.com';
