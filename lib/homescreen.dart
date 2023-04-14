@@ -11,7 +11,7 @@ import 'package:quickalert/quickalert.dart';
 import 'package:validation_project/models/output_model.dart';
 import 'package:validation_project/api/testapi.dart';
 
-import 'api/nudity_api.dart';
+import 'api/status_api.dart';
 import 'constant.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -304,3 +304,127 @@ class CustomSnackBar extends StatelessWidget {
         ));
   }
 }
+
+/* User.js
+const { user } = require("../controllers/auth.js");
+const db = require("../database.js");
+
+const User = function(user){
+    this.username = user.username;
+    this.email = user.email;
+    this.password = user.password;
+    this.created_at = new Date();
+}
+
+User.create = (newUser) =>{
+    try {
+        db. run ("INSERT INTO user_info SET ?", newUser, (err) => {
+        if (err) {
+            console.log(err.message);
+            return false;
+        }
+        console.log(`User ${user. username} created successfully.`);
+        })
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+User.findAll = (callback) =>{
+    var sql = "SELECT * FROM user_info";
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            callback(null, err);
+            console.log(err.message);
+          res.status(500).json({"error":"Could not get Users"});
+          return;
+        } else{
+            callback(rows);
+            res
+            .status(200)
+            .json({
+                message:"success",
+                data:rows
+            })
+        }
+
+    });
+
+}
+module.exports = { user }
+*/
+
+/* Mode.JS
+const db = require("../database.js");
+
+const Mode = function(modes){
+    this.mode_name = modes.mode_name;
+    this.image_url = modes.image_url;
+    this.created_at = new Date();
+}
+
+Mode.create = (newMode, result) =>{
+    db.run("INSERT INTO Modes SET ?", newMode, (err, res) => {
+        if(err){
+            console.log(err.message);
+            res.status(500).send("Could not create Modes.");
+            result(err, null);
+            return;
+        }
+
+        console.log(`Mode ${newMode} created successfully.`);
+        result(null, res
+            .status(200)
+            .send('{"message":"Mode created successfully","status":"200"}')
+        );
+
+    });
+}
+
+Mode.findById = (id, result) => {
+    db.get("SELECT * FROM Modes WHERE id = ?",[id], (err, row) => {
+      if (err) {
+        console.log("error: ", err.message);
+        result(err, null);
+        return;
+      } else if (!row) {
+        console.log(`Not found Mode: ${id}`);
+        return;
+      } else {
+        result(null, res
+            .status(200)
+            .json({message:"Mode created successfully",data:row})
+        );
+      }
+    });
+};
+
+
+
+
+Mode.getAll = (callback) =>{
+    var sql = "SELECT * FROM Modes";
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            callback(null, err);
+            console.log(err.message);
+          res.status(500).json({"error":"Could not get Modes"});
+          return;
+        } else{
+            callback(rows);
+            res
+            .status(200)
+            .json({
+                message:"success",
+                data:rows
+            })
+        }
+
+    });
+
+}
+//User.findById = () =>{}
+
+module.exports = Mode 
+
+*/

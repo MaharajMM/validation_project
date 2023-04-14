@@ -15,9 +15,13 @@ Future<OutputModel> testApi({
   const endPoint = 'v1/profanityfilter';
   final queryParameters = {"text": text};
   final uri = Uri.https(url, endPoint, queryParameters);
+
   print(uri);
+
   final responseTest = await http.get(uri, headers: headers);
+
   print(responseTest.body);
+
   final source = jsonDecode(responseTest.body);
   return OutputModel.fromJson(source);
 }
